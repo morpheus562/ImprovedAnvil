@@ -841,9 +841,24 @@ COPY ~ImprovedAnvil/resources/creatures/new/S!cghos2.cre~         ~override/S!cg
   SAY NAME1     @486
   SAY NAME2     @486
 
+LAF FIND_FREE_ANIM_SLOT INT_VAR slotMin = 0xE000 slotMax = 0xefff RET slot END
+ACTION_IF (slot <= 0) BEGIN
+  FAIL ~No free creature animation slot found.~
+END
+
+LAF TO_HEX_NUMBER INT_VAR value = slot minDigits = 4 RET hexNumber END
+APPEND ~animate.ids~ ~0x%hexNumber% MO_DRACOLICH_NWN~ UNLESS ~MO_DRACOLICH_NWN~
+CLEAR_IDS_MAP
+
+COPY ~%MOD_FOLDER%/resources/animations/dracolich_nwn/exxx.ini~ ~override/%hexNumber%.ini~
+
+ACTION_BASH_FOR ~%MOD_FOLDER%/resources/animations/dracolich_nwn~ ~^.+\.bam$~ BEGIN
+  COPY ~%BASH_FOR_FILESPEC%~ ~override~
+END
 COPY ~ImprovedAnvil/resources/creatures/new/S!dracol.cre~         ~override/S!dracol.cre~
   SAY NAME1     @487
   SAY NAME2     @487
+  WRITE_LONG 0x28 IDS_OF_SYMBOL (animate MO_DRACOLICH_NWN)
 
 COPY ~ImprovedAnvil/resources/creatures/new/S!shadow.cre~         ~override/S!shadow.cre~
   SAY NAME1     @488
