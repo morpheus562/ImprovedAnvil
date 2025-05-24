@@ -315,3 +315,6 @@ COPY ~ImprovedAnvil/resources/animations/dracolich_nwn/exxx.ini~ ~override/%hexN
 ACTION_BASH_FOR ~ImprovedAnvil/resources/animations/dracolich_nwn~ ~^.+\.bam$~ BEGIN
   COPY ~%BASH_FOR_FILESPEC%~ ~override~
 END
+
+// Copy Elder Umber Hulk Animations into the Game
+COPY ~ImprovedAnvil/resources/animations/umber_hulk_elder~ ~override~
